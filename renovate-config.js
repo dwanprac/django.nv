@@ -5,7 +5,7 @@ module.exports = {
     extends: ["config:base"]
   },
   repositories: [
-    'renovatebot/github-action'
+    'dwanprac/django.nv'
   ],
   
 };
