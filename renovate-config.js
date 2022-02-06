@@ -6,10 +6,9 @@ module.exports = {
   onboarding: false,
   platform: 'github',
   includeForks: true,
+  extends: ["@fds:web", "@fds:python"],
   repositories: [
-    'renovatebot/github-action',
-    'renovate-tests/cocoapods1',
-    'renovate-tests/gomod1',
+    'renovatebot/github-action'
   ],
   packageRules: [
     {
