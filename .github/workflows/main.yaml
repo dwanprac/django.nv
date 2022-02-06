@@ -1,56 +1,22 @@
-name: Django                                  # workflow name
+name: Django                                
 
 on:
   push:                                       
-    branches:                                 # similar to "only" in GitLab
+    branches:                                
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest                    # similar to "image" in GitLab
+  renovate:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup python
-        uses: actions/setup-python@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          python-version: '3.6'
+          ref: master
 
-      - run: |
-          pip3 install --upgrade virtualenv
-          virtualenv env
-          source env/bin/activate
-          pip install -r requirements.txt
-          python manage.py check
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup python
-        uses: actions/setup-python@v2
+      - name: Whitesource Renovate Scan
+        uses: renovatebot/github-action@v31.63.2
         with:
-          python-version: '3.6'
+          configurationFile: example/renovate-config.js
+          token: ${{ secrets.RENOVATE_TOKEN }}
 
-      - run: |
-          pip3 install --upgrade virtualenv
-          virtualenv env
-          source env/bin/activate
-          pip install -r requirements.txt
-          python manage.py test taskManager
-
-  integration:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - run: echo "This is an integration step"
-      - run: exit 1
-        continue-on-error: true
-
-  prod:
-    runs-on: ubuntu-latest
-    needs: integration
-    steps:
-      - run: echo "This is a deploy step."
