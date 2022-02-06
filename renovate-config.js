@@ -6,7 +6,7 @@ module.exports = {
   includeForks: true,
   onboardingConfig:
   {
-    extends: ["config:base", "@fds:web", "@fds:python"]
+    extends: ["config:base"]
   },
   repositories: [
     'renovatebot/github-action'
