@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.0.0
-      - name: Cosign
-        uses: sigstore/cosign-installer@v1.1.0
-      - name: cosigned
-        run: echo -n "${{secrets.COSIGN_PASSWORD}}" | KO_PREFIX=gcr.io/projectsigstore/cosign/ci make sign-cosigned
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@main
+      - name: Check install!
+        run: cosign version
