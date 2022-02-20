@@ -9,16 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
     - name: Get current Date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      
     - name: Docker login
       run: echo ${{secrets.DOCKER_PASSWORD}} | docker login -u dwansec --password-stdin
+      
     - name: build Docker Image
       run: docker build -t dwansec/cosign_test:${{steps.date.outputs.date}} .
+      
     - name: push to Docker Hub
       run: docker push dwansec/cosign_test:${{steps.date.outputs.date}}
+      
     - name: Install Cosign
       uses: sigstore/cosign-installer@main
+      
     - name: Sign image with a key
       run: echo "${{secrets.COSIGN_KEY}}" > /tmp/cosign.key' | echo -n "${{secrets.COSIGN_PASSWORD}}" | cosign sign --key /tmp/cosign.key dwansec/cosign_test:${{steps.date.outputs.date}}
