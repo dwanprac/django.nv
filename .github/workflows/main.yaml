@@ -28,3 +28,4 @@ jobs:
       
     - name: Sign image with a key
       run: echo "${{secrets.COSIGN_KEY}}" > /tmp/cosign.key | echo -n "${{secrets.COSIGN_PASSWORD}}" | cosign sign --key /tmp/cosign.key dwansec/cosign_test:${{steps.date.outputs.date}}
+      
