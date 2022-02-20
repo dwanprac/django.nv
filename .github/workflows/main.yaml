@@ -8,9 +8,20 @@ jobs:
   renovate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.0.0
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@main
-      - name: Check install!
-        run: cosign version
+    - uses: actions/checkout@v2
+    - name: Get current Date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    - name: Docker login
+      run: echo ${{secrets.DOCKER_PASSWORD}} | docker login -u raesene --password-stdin
+    - name: build Docker Image
+      run: docker build -t raesene/cosign_test:${{steps.date.outputs.date}} .
+    - name: push to Docker hub
+      run: docker push raesene/cosign_test:${{steps.date.outputs.date}}
+    - name: place the cosign private key in a file
+      run: 'echo "$COSIGN_KEY" > /tmp/cosign.key'
+      shell: bash
+      env:
+        COSIGN_KEY: ${{secrets.COSIGN_KEY}}
+    - name: Sign the image pushed
+      run: echo -n "${{secrets.COSIGN_PASSWORD}}" | ./cosign sign -key /tmp/cosign.key raesene/cosign_test:${{steps.date.outputs.date}
