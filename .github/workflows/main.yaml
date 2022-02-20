@@ -26,4 +26,4 @@ jobs:
     - name: Install Cosign
       uses: sigstore/cosign-installer@main
     - name: Check install!
-      run: echo -n "${{secrets.COSIGN_PASSWORD}}" | ./cosign sign -key /tmp/cosign.key dwansec/cosign_test:${{steps.date.outputs.date}}
+      run: echo -n "${{secrets.COSIGN_PASSWORD}}" | cosign sign -key /tmp/cosign.key dwansec/cosign_test:${{steps.date.outputs.date}}
