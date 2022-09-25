@@ -25,7 +25,7 @@
     "//": "a9 insecure components"
   },
   "engines": {
-    "node": "4.9.x",
+    "node": "16.17.x",
     "npm": "2.15.x"
   },
   "scripts": {
