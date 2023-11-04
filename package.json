@@ -35,7 +35,7 @@
     "precommit": "grunt precommit"
   },
   "devDependencies": {
-    "async": "2.6.3",
+    "async": "3.2.5",
     "grunt": "1.4.1",
     "grunt-cli": "1.4.3",
     "grunt-concurrent": "2.3.1",
