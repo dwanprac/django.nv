@@ -17,7 +17,7 @@
     "marked": "0.3.9",
     "mongodb": "2.2.36",
     "node-esapi": "0.0.1",
-    "serve-favicon": "2.5.0",
+    "serve-favicon": "2.5.1",
     "swig": "1.4.2",
     "underscore": "1.13.2"
   },
